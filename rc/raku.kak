@@ -36,18 +36,23 @@ add-highlighter shared/raku regions
 
 add-highlighter shared/raku/code default-region group
 
+# strings
 add-highlighter shared/raku/double_string region '"' (?<!\\)(\\\\)*" fill string
 add-highlighter shared/raku/single_string region "(?<![a-zA-Z0-9_])'" (?<!\\)(\\\\)*' fill string
 
+# comments
 add-highlighter shared/raku/line_comment region "#[^`|=]" $ fill comment
 add-highlighter shared/raku/paren_block_comment region -recurse \( "#`\(" \) fill comment
 add-highlighter shared/raku/brace_block_comment region -recurse \{ "#`\{" \} fill comment
 add-highlighter shared/raku/square_bracket_block_comment region -recurse \[ "#`\[" \] fill comment
 add-highlighter shared/raku/angle_bracket_block_comment region -recurse < "#`<" > fill comment
 
+# pod
 # ideally we'd have a dedicated highlighter for pod syntax but for the time being, this should work perfectly fine
-add-highlighter shared/raku/pod region -match-capture "^=begin ([a-zA-Z0-9]*)" "^=end ([a-zA-Z0-9]*)" fill comment
+add-highlighter shared/raku/pod_block region -match-capture "^=begin (([a-zA-Z_])(('|-)[a-zA-Z_]|[a-zA-Z0-9_])*))" "^=end (([a-zA-Z_])(('|-)[a-zA-Z_]|[a-zA-Z0-9_])*))" fill comment
+add-highlighter shared/raku/pod region "^=([a-zA-Z_])(('|-)[a-zA-Z_]|[a-zA-Z0-9_])*)" ^$ fill comment
 
+# pod documentation
 add-highlighter shared/raku/pod_doc_comment region "#[|=][^(]" $ fill documentation
 add-highlighter shared/raku/pod_block_doc_comment region -recurse \( "#[|=]\(" \) fill documentation
 
@@ -94,7 +99,7 @@ evaluate-commands %sh{
            Object Any Junction Whatever Capture Match
            Signature Proxy Matcher Package Module Class
            Grammar Scalar Array Hash KeyHash KeySet KeyBag
-Pair List Seq Range Set Bag Map Mapping Void Undef
+           Pair List Seq Range Set Bag Map Mapping Void Undef
            Failure Exception Code Block Routine Sub Macro
            Method Submethod Regex Str Blob Char Byte Parcel
            Codepoint Grapheme StrPos StrLen Version Num
