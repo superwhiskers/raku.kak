@@ -39,7 +39,7 @@ add-highlighter shared/raku/code default-region group
 # strings
 add-highlighter shared/raku/double_string region '"' (?<!\\)(\\\\)*" fill string
 add-highlighter shared/raku/single_string region "(?<![a-zA-Z0-9_])'" (?<!\\)(\\\\)*' fill string
-add-highlighter shared/raku/heredoc_strings region -match-capture '(?:q|qq|Q):to/([a-zA-Z]+)/' '([a-zA-Z]+)\h*' fill string
+add-highlighter shared/raku/heredoc_strings region -match-capture '(?:q|qq|Q):to/([a-zA-Z_\-]+)/' '([a-zA-Z_\-]+)\h*' fill string
 
 # comments
 add-highlighter shared/raku/line_comment region "#[^`|=]" $ fill comment
