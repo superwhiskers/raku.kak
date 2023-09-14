@@ -12,6 +12,7 @@ hook global WinSetOption filetype=raku %{
     require-module raku
 
     set-option window static_words %opt{raku_static_words}
+    set-option buffer extra_word_chars '_' '-'
 
     hook window ModeChange pop:insert:.* -group raku-trim-indent %{ try %{ execute-keys -draft <a-x>s^\h+$<ret>d } }
 
