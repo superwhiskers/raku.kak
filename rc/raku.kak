@@ -117,11 +117,11 @@ evaluate-commands %sh{
     printf %s\\n "declare-option str-list raku_static_words $(join "${keywords} ${meta} ${builtins} ${operators} ${types}" ' ')"
 
     printf %s "
-        add-highlighter shared/raku/code/ regex \b($(join "${keywords}" '|'))\b 0:keyword
-        add-highlighter shared/raku/code/ regex \b($(join "${meta}" '|'))\b 0:meta
-        add-highlighter shared/raku/code/ regex \b($(join "${builtins}" '|'))\b 0:builtin
-        add-highlighter shared/raku/code/ regex \b($(join "${operators}" '|'))\b 0:operator
-        add-highlighter shared/raku/code/ regex \b($(join "${types}" '|'))\b 0:type
+        add-highlighter shared/raku/code/ regex \b(?<!')(?<!-)($(join "${keywords}" '|'))(?!')(?!-)\b 0:keyword
+        add-highlighter shared/raku/code/ regex \b(?<!')(?<!-)($(join "${meta}" '|'))(?!')(?!-)\b 0:meta
+        add-highlighter shared/raku/code/ regex \b(?<!')(?<!-)($(join "${builtins}" '|'))(?!')(?!-)\b 0:builtin
+        add-highlighter shared/raku/code/ regex \b(?<!')(?<!-)($(join "${operators}" '|'))(?!')(?!-)\b 0:operator
+        add-highlighter shared/raku/code/ regex \b(?<!')(?<!-)($(join "${types}" '|'))(?!')(?!-)\b 0:type
     "
 }
 
@@ -144,9 +144,9 @@ define-command -hidden raku-indent-on-new-line %~
         # preserve previous line indent
         try %{ execute-keys -draft <semicolon>K<a-&> }
         # indent after lines ending with { or (
-        try %[ execute-keys -draft k<a-x> <a-k> [{(]\h*$ <ret> j<a-gt> ]
+        try %[ execute-keys -draft kx <a-k> [{(]\h*$ <ret> j<a-gt> ]
         # cleanup trailing white spaces on the previous line
-        try %{ execute-keys -draft k<a-x> s \h+$ <ret>d }
+        try %{ execute-keys -draft kx s \h+$ <ret>d }
         # align to opening paren of previous line
         try %{ execute-keys -draft [( <a-k> \A\([^\n]+\n[^\n]*\n?\z <ret> s \A\(\h*.|.\z <ret> '<a-;>' & }
         # indent after a switch's case/default statements
