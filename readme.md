@@ -4,6 +4,10 @@
 
 extremely simple syntax highlighting for [raku](https://raku.org)
 
+# archival warning
+
+kakoune has [official](https://github.com/mawww/kakoune/commit/1e7b10bcd56ce7bf62b4d33bef1b175f500f22be) syntax highlighting for raku now. this repository is deprecated
+
 ## remaining things to add
 
 -   unicode in identifiers
